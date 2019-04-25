@@ -1,0 +1,118 @@
+<beast beautistatus="noAutoSetClockRate" beautitemplate="StarBeast2" namespace="beast.core:beast.evolution.alignment:beast.evolution.tree.coalescent:beast.core.util:beast.evolution.nuc:beast.evolution.operators:beast.evolution.sitemodel:beast.evolution.substitutionmodel:beast.evolution.likelihood" required="BEAST v2.5.2:starbeast2 v0.15.1:SA v2.0.1" version="2.5">
+
+
+    <data id="Gene" name="alignment">
+                    <sequence id="Gene_T1" taxon="T1" totalcount="4" value="-" />
+<sequence id="Gene_T2" taxon="T2" totalcount="4" value="-" />
+<sequence id="Gene_T3" taxon="T3" totalcount="4" value="-" />
+</data>
+
+
+    
+
+
+    
+
+
+    
+<map name="Uniform">beast.math.distributions.Uniform</map>
+<map name="Exponential">beast.math.distributions.Exponential</map>
+<map name="LogNormal">beast.math.distributions.LogNormalDistributionModel</map>
+<map name="Normal">beast.math.distributions.Normal</map>
+<map name="Beta">beast.math.distributions.Beta</map>
+<map name="Gamma">beast.math.distributions.Gamma</map>
+<map name="LaplaceDistribution">beast.math.distributions.LaplaceDistribution</map>
+<map name="prior">beast.math.distributions.Prior</map>
+<map name="InverseGamma">beast.math.distributions.InverseGamma</map>
+<map name="OneOnX">beast.math.distributions.OneOnX</map>
+
+
+<run chainLength="25000000" id="mcmc" spec="MCMC" storeEvery="20000">
+    <state id="state" storeEvery="20000">
+        <stateNode id="Tree.t:Species" spec="beast.evolution.tree.Tree">
+            <trait id="dateTrait.t:Species" spec="beast.evolution.tree.TraitSet" traitname="date-backward">
+                T1=2,
+T2=1,
+T3=0                <taxa alignment="@Gene" id="taxonsuperset" spec="TaxonSet">
+                    </taxa>
+            </trait>
+            <taxonset idref="taxonsuperset" />
+        </stateNode>
+        <parameter id="originFBD.t:Species" lower="0.0" name="stateNode">10.0</parameter>
+    </state>
+
+    <init estimate="false" id="RandomTree.t:Species" initial="@Tree.t:Species" spec="beast.evolution.tree.RandomTree" taxa="@Gene">
+        <populationModel id="ConstantPopulation.t:Species" spec="ConstantPopulation"><parameter id="randomPopSize.t:Species" name="popSize">1.0</parameter></populationModel></init>
+
+    <distribution id="posterior" spec="util.CompoundDistribution">
+        <distribution id="prior" spec="util.CompoundDistribution">
+            <distribution id="FBDModel.t:Species" origin="@originFBD.t:Species" spec="beast.evolution.speciation.SABirthDeathModel" tree="@Tree.t:Species">
+                <parameter estimate="false" id="birthRate.t:Species" lower="0.0" name="birthRate">2.0</parameter>
+                <parameter estimate="false" id="deathRate.t:Species" lower="0.0" name="deathRate" upper="1.0">1.0</parameter>
+                <parameter estimate="false" id="samplingRate.t:Species" lower="0.0" name="samplingRate" upper="1.0">0.5</parameter>
+                <parameter id="rFBD.t:Species" lower="0.0" name="removalProbability" upper="1.0">0.9</parameter>
+            </distribution>
+            <prior id="originPriorFBD.t:Species" name="distribution" x="@originFBD.t:Species">
+                <Uniform id="Uniform.3" name="distr" upper="1000.0" />
+            </prior>
+        </distribution>
+        <distribution id="likelihood" spec="util.CompoundDistribution">
+            <distribution data="@Gene" id="treeLikelihood.Gene" spec="TreeLikelihood" tree="@Tree.t:Species">
+                <siteModel id="SiteModel.s:Gene" spec="SiteModel">
+                    <parameter estimate="false" id="mutationRate.s:Gene" name="mutationRate">1.0</parameter>
+                    <parameter estimate="false" id="gammaShape.s:Gene" name="shape">1.0</parameter>
+                    <parameter estimate="false" id="proportionInvariant.s:Gene" lower="0.0" name="proportionInvariant" upper="1.0">0.0</parameter>
+                    <substModel id="JC69.s:Gene" spec="JukesCantor" />
+                </siteModel>
+                <branchRateModel id="StrictClock.c:Gene" spec="beast.evolution.branchratemodel.StrictClockModel">
+                    <parameter estimate="false" id="strictClockRate.c:Gene" lower="0.0" name="clock.rate">1.0</parameter>
+                </branchRateModel>
+            </distribution>
+        </distribution>
+    </distribution>
+
+    <operator id="updownAll:Species" scaleFactor="0.75" spec="UpDownOperator" weight="6.0">
+        <down idref="Tree.t:Species" />
+        </operator>
+
+    <operator id="originScalerFBD.t:Species" parameter="@originFBD.t:Species" scaleFactor="0.75" spec="ScaleOperator" weight="3.0" />
+
+    <operator id="LeafToSAFBD.t:Species" spec="LeafToSampledAncestorJump" tree="@Tree.t:Species" weight="10.0" />
+
+    <operator id="SAWilsonBaldingFBD.t:Species" spec="SAWilsonBalding" tree="@Tree.t:Species" weight="10.0" />
+
+    <operator id="SAWideFBD.t:Species" isNarrow="false" spec="SAExchange" tree="@Tree.t:Species" weight="10.0" />
+
+    <operator id="SANarrowFBD.t:Species" spec="SAExchange" tree="@Tree.t:Species" weight="10.0" />
+
+    <operator id="SAUniformOperatorFBD.t:Species" spec="SAUniform" tree="@Tree.t:Species" weight="20.0" />
+
+    <operator id="SATreeRootScalerFBD.t:Species" rootOnly="true" scaleFactor="0.95" spec="SAScaleOperator" tree="@Tree.t:Species" weight="1.0" />
+
+    <operator id="SATreeScalerFBD.t:Species" scaleFactor="0.95" spec="SAScaleOperator" tree="@Tree.t:Species" weight="3.0" />
+
+    <logger fileName="sa.log" id="tracelog" logEvery="20000" model="@posterior" sort="smart">
+        <log idref="posterior" />
+        <log idref="likelihood" />
+        <log idref="prior" />
+        <log id="TreeHeight.Species" spec="beast.evolution.tree.TreeHeightLogger" tree="@Tree.t:Species" />
+        <log id="TreeLength.Species" spec="starbeast2.TreeLengthLogger" tree="@Tree.t:Species" />
+        <log idref="treeLikelihood.Gene" />
+        <log idref="FBDModel.t:Species" />
+        <log idref="originFBD.t:Species" />
+    </logger>
+
+    <logger fileName="sa.trees" id="speciesTreeLogger" logEvery="20000" mode="tree">
+        <log id="SpeciesTreeLoggerX" spec="beast.evolution.tree.TreeWithMetaDataLogger" tree="@Tree.t:Species" />
+    </logger>
+
+    <logger id="screenlog" logEvery="20000" model="@posterior">
+        <log idref="posterior" />
+        <log arg="@posterior" id="ESS.0" spec="util.ESS" />
+        <log idref="likelihood" />
+        <log idref="prior" />
+    </logger>
+
+</run>
+
+</beast>
