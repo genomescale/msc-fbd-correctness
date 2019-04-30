@@ -55,7 +55,7 @@ backwards compatible with previous versions of StarBEAST2, it is called
 NodeReheight2, the name of a similar operator that only works on ultrametric
 trees.
 
-## Model parameters
+## Model parameters and probabilities
 
 We replicated the analysis presented in the Supporting Information of
 Gavryushkina *et al.* (2014), section "Testing operators". The model
