@@ -200,14 +200,14 @@ was invaluable for processing MCMC output.
 
 Drummond A. J. & Bouckaert R. R. (2015) *Bayesian evolutionary analysis with BEAST.* Cambridge University Press.
 
-Gavryushkina, A., Welch, D., Stadler, T. & Drummond, A. J. (2014). "Bayesian inference of sampled ancestor trees for epidemiology and fossil calibration." PLoS computational biology, 10(12), e1003919.
+Gavryushkina A., Welch D., Stadler T. & Drummond A. J. (2014). "Bayesian inference of sampled ancestor trees for epidemiology and fossil calibration." PLoS computational biology, 10(12), e1003919.
 
 Heled Y. (2011) *Bayesian Computational Inference of Species Trees and Population Sizes*. The University of Auckland.
 
-Mau, B., Newton, M. A. & Larget, B. (1999). "Bayesian phylogenetic inference via Markov chain Monte Carlo methods." Biometrics, 55(1), 1-12.
+Mau B., Newton M. A. & Larget B. (1999). "Bayesian phylogenetic inference via Markov chain Monte Carlo methods." Biometrics, 55(1), 1-12.
 
-Ogilvie, H. A., Bouckaert, R. R. & Drummond, A. J. (2017). "StarBEAST2 brings faster species tree inference and accurate estimates of substitution rates." Molecular biology and evolution, 34(8), 2101-2114.
+Ogilvie H. A., Bouckaert R. R. & Drummond A. J. (2017). "StarBEAST2 brings faster species tree inference and accurate estimates of substitution rates." Molecular biology and evolution, 34(8), 2101-2114.
 
-Sokal, A. (1997). "Monte Carlo methods in statistical mechanics: foundations and new algorithms." In *Functional integration*, 131-192. Springer.
+Sokal A. (1997). "Monte Carlo methods in statistical mechanics: foundations and new algorithms." In *Functional integration*, 131-192. Springer.
 
-Sukumaran, J. & Holder, M. T. (2010). "DendroPy: a Python library for phylogenetic computing." Bioinformatics, 26(12), 1569-1571.
+Sukumaran J. & Holder M. T. (2010). "DendroPy: a Python library for phylogenetic computing." Bioinformatics, 26(12), 1569-1571.
