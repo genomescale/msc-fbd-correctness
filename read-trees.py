@@ -14,8 +14,7 @@ def calculate_sa_code(tree):
 
 	return sa_code
 
-# configurations = ["sa", "msc", "coordinated", "nodereheight", "full"]
-configurations = ["updownless"]
+configurations = ["updownless", "sa", "msc", "coordinated", "nodereheight", "full"]
 n_reps = 100
 
 # avoid dendropy memory leak by calling self

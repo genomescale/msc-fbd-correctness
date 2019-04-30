@@ -10,7 +10,6 @@ burnin = 5001
 n_raw = 20000
 
 configurations = ["full", "nodereheight", "coordinated", "msc", "sa", "updownless"]
-# configurations = ["full", "sa"]
 
 marginals_filename = "estimated-marginals.csv"
 marginals_file = open(marginals_filename, "w")

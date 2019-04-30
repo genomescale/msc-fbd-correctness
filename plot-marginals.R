@@ -12,7 +12,7 @@ levels(true_marginals$variable) = c(expression(t["or"]), expression(x["1"]), exp
 levels(topology0_marginals$config) = c("Coordinated", "Full", "MSC", "NodeReheight2", "UpDown", "SA")
 
 ggplot(topology0_marginals, aes(x = lower_bound, y = marginal_probability * 10)) +
-  geom_step(alpha = 0.1, aes(group = rep_i, color = config)) +
+  geom_step(alpha = 0.1, aes(group = rep_i), color = "green") +
   geom_step(data = true_marginals) +
   facet_grid(config ~ variable, labeller = label_parsed) +
   scale_x_continuous(limits = c(0, 5)) +
