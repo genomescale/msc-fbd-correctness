@@ -71,10 +71,6 @@ T3=0                <taxa alignment="@Gene" id="taxonsuperset" spec="TaxonSet">
         </distribution>
     </distribution>
 
-    <operator id="updownAll:Species" scaleFactor="0.75" spec="UpDownOperator" weight="6.0">
-        <down idref="Tree.t:Species" />
-        </operator>
-
     <operator id="originScalerFBD.t:Species" parameter="@originFBD.t:Species" scaleFactor="0.75" spec="ScaleOperator" weight="3.0" />
 
     <operator id="LeafToSAFBD.t:Species" spec="LeafToSampledAncestorJump" tree="@Tree.t:Species" weight="10.0" />

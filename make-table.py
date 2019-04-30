@@ -1,4 +1,5 @@
 import csv
+import numpy
 import scipy.stats
 
 true_probs = [
@@ -12,24 +13,37 @@ true_probs = [
 	0.006930,
 ]
 
+n_raw = 20000.0
+
 topologies_filename = "topologies.csv"
 topologies_file = open(topologies_filename)
 topologies_reader = csv.reader(topologies_file)
 
 inside_counts = {}
 
-for row in topologies_reader:
-	config = row[0]
-	ess = int(round(float(row[2])))
+topology_output_header = ["config", "rep_i", "topology_code", "topology_count", "autocorrelation_time"]
 
-	if config not in inside_counts:
-		inside_counts[config] = [0] * 8
+for row_i, row in enumerate(topologies_reader):
+	if row_i >= 1:
+		config = row[0]
+		topology_code = int(row[2])
+		topology_count = float(row[3])
+		autocorrelation_time = float(row[4])
+		ess = int(round(n_raw / max(1.0, autocorrelation_time)))
+		# ess = 1000.0
 
-	for i in range(8):
-		probability_interval = scipy.stats.binom.ppf([0.025, 0.975], n = ess, p = true_probs[i]) / ess
-		observed_probability = float(row[i + 3])
+		if config not in inside_counts:
+			inside_counts[config] = [0] * 8
 
-		if probability_interval[0] < observed_probability < probability_interval[1]:
-			inside_counts[config][i] += 1
+		probability_interval = scipy.stats.binom.ppf([0.025, 0.975], n = ess, p = true_probs[topology_code]) / ess
 
-print(inside_counts)
+		if probability_interval[0] < (topology_count / n_raw) < probability_interval[1]:
+			inside_counts[config][topology_code] += 1
+
+output_filename = "table.csv"
+output_file = open(output_filename, "w")
+output_writer = csv.writer(output_file)
+for config in sorted(inside_counts):
+	output_writer.writerow([config] + inside_counts[config])
+
+output_file.close()

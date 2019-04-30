@@ -27,8 +27,8 @@
 <map name="OneOnX" >beast.math.distributions.OneOnX</map>
 
 
-<run id="mcmc" spec="MCMC" chainLength="25000000" storeEvery="20000">
-    <state id="state" storeEvery="20000">
+<run id="mcmc" spec="MCMC" chainLength="2500000" storeEvery="100">
+    <state id="state" storeEvery="100">
         <stateNode id="Tree.t:Species" spec="starbeast2.SpeciesTree">
             <trait id="dateTrait.t:Species" spec="beast.evolution.tree.TraitSet" traitname="date-backward">
                 T1=2,
@@ -137,7 +137,7 @@ T3=0                <taxa id="taxonsuperset" spec="starbeast2.StarBeastTaxonSet"
 
     <operator id="SATreeScalerFBD.t:Species" spec="SAScaleOperator" scaleFactor="0.95" tree="@Tree.t:Species" weight="3.0"/>
 
-    <logger id="tracelog" fileName="nodereheight.log" logEvery="20000" model="@posterior" sort="smart">
+    <logger id="tracelog" fileName="nodereheight.log" logEvery="100" model="@posterior" sort="smart">
         <log idref="posterior"/>
         <log idref="likelihood"/>
         <log idref="prior"/>
@@ -150,18 +150,18 @@ T3=0                <taxa id="taxonsuperset" spec="starbeast2.StarBeastTaxonSet"
         <log idref="originFBD.t:Species"/>
     </logger>
 
-    <logger id="speciesTreeLogger" fileName="nodereheight.trees" logEvery="20000" mode="tree">
+    <logger id="speciesTreeLogger" fileName="nodereheight.trees" logEvery="100" mode="tree">
         <log id="SpeciesTreeLoggerX" spec="starbeast2.SpeciesTreeLogger" speciesTree="@Tree.t:Species"/>
     </logger>
 
-    <logger id="screenlog" logEvery="20000" model="@posterior">
+    <logger id="screenlog" logEvery="10000" model="@posterior">
         <log idref="posterior"/>
         <log id="ESS.0" spec="util.ESS" arg="@posterior"/>
         <log idref="likelihood"/>
         <log idref="prior"/>
     </logger>
 
-    <logger id="treelog.t:Gene" fileName="nodereheight.genetrees" logEvery="20000" mode="tree">
+    <logger id="treelog.t:Gene" fileName="nodereheight.genetrees" logEvery="100" mode="tree">
         <log id="TreeWithMetaDataLogger.t:Gene" spec="beast.evolution.tree.TreeWithMetaDataLogger" tree="@Tree.t:Gene"/>
     </logger>
 

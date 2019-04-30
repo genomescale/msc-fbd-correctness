@@ -14,13 +14,14 @@ def calculate_sa_code(tree):
 
 	return sa_code
 
-configurations = ["sa", "msc", "coordinated", "nodereheight", "full"]
+# configurations = ["sa", "msc", "coordinated", "nodereheight", "full"]
+configurations = ["updownless"]
 n_reps = 100
 
 # avoid dendropy memory leak by calling self
 if len(sys.argv) == 1:
 	for config in configurations:
-		for rep_i in range(n_reps):
+		for rep_i in range(42, n_reps):
 			rep_base_filename = "%s.%03d" % (config, rep_i)
 			rep_base_path = os.path.join(config, rep_base_filename)
 			print(rep_base_path)
