@@ -176,10 +176,11 @@ chain):
 
 ![alt text](marginal-probability.png "Marginal probability distributions of origin and bifurcation times.")
 
-For each MCMC configuration and real parameter, the marginal probability
-densities calculated using quadrature were in the middle of the range of
-marginal probability densities calculated using MCMC. This is strong evidence
-for the correctness of StarBEAST2 for sampled ancestors.
+Each subplot was truncated at 6 time units as the probability density was very
+low beyond that point. For each MCMC configuration and real parameter, the
+marginal probability densities calculated using quadrature were in the middle
+of the range of marginal probability densities calculated using MCMC. This is
+strong evidence for the correctness of StarBEAST2 for sampled ancestors.
 
 The [DendroPy](https://dendropy.org/) library
 [(Sukumaran & Holder 2010)](https://doi.org/10.1093/bioinformatics/btq228)
