@@ -68,9 +68,9 @@ parameters are:
 * Time of origin ~ Uniform(0, 1000)
 
 The number of species is fixed at three, and the sampling times of those
-species are fixed at y1 = 2, y2 = 1, and y3 = 0. A maximum of three real
+species are fixed at y<sub>1</sub> = 2, y<sub>2</sub> = 1, and y<sub>3</sub> = 0. A maximum of three real
 parameters are sampled; the time of origin and two bifurcation times. If the
-species serially sampled at y1 or y2 are sampled ancestors, then there will
+species serially sampled at y<sub>1</sub> or y<sub>2</sub> are sampled ancestors, then there will
 only be one or zero bifurcation times to estimate. There are eight possible
 topologies given one extant and two fossil/ancient species, and Gavryushkina
 *et al.* (2014) calculated their true probabilities (absent any data) as:
